@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "graphql-query-manager"
+version = "0.1.0"
+description = "A Python library for generating GraphQL queries from introspection data."
+authors = ["Your Name <youremail@example.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/yourusername/graphql-query-manager"
+repository = "https://github.com/yourusername/graphql-query-manager"
+keywords = ["graphql", "query", "introspection", "api"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.25.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+black = "^21.5b1"
+mypy = "^0.910"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
