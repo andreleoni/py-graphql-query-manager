@@ -26,8 +26,9 @@ To fetch introspection data and generate a query, you can use the following code
 from graphql_query_manager.introspection import fetch_introspection
 from graphql_query_manager.query_generator import generate_graphql_query
 
-# Fetch introspection data
-introspection_data = fetch_introspection()
+# Fetch introspection data - specify your GraphQL endpoint
+endpoint = "https://your-graphql-api.com/graphql"
+introspection_data = fetch_introspection(endpoint)
 
 # Define the fields you want to query
 introspected_fields = {
@@ -59,6 +60,53 @@ print(query)
 ### Advanced Query Generation
 
 For more complex queries, you can customize the JSON structure to include nested fields and relationships as needed.
+
+```python
+from graphql_query_manager.introspection import fetch_introspection
+from graphql_query_manager.query_generator import generate_graphql_query
+
+# Fetch introspection data
+endpoint = "https://your-graphql-api.com/graphql"
+introspection_data = fetch_introspection(endpoint)
+
+# Extract schema information
+parsed_schema = introspection_data["data"]["__schema"]
+query_root = parsed_schema["queryType"]["name"]
+
+# Define a complex query structure
+query_fields = [
+    {
+        "user": [
+            "id",
+            "name",
+            "email",
+            {
+                "posts": [
+                    "id",
+                    "title",
+                    "content",
+                    {
+                        "comments": [
+                            "id",
+                            "text",
+                            {
+                                "author": [
+                                    "name",
+                                    "email"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
+
+# Generate the GraphQL query
+query = generate_graphql_query(query_fields, root=query_root, user_id=1)
+print(query)
+```
 
 ## Contributing
 
