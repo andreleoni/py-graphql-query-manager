@@ -1,10 +1,15 @@
 import requests
 import json
 
-GRAPHQL_ENDPOINT = "http://localhost:4000/"
+def fetch_introspection(endpoint):
+    """Fetches the GraphQL introspection data to retrieve schema details and available types.
 
-def fetch_introspection():
-    """Fetches the GraphQL introspection data to retrieve schema details and available types."""
+    Args:
+        endpoint (str): The GraphQL endpoint URL.
+
+    Returns:
+        dict: The introspection query response or None if the request fails.
+    """
     introspection_query = """
     {
       __schema {
@@ -29,5 +34,5 @@ def fetch_introspection():
       }
     }
     """
-    response = requests.post(GRAPHQL_ENDPOINT, json={"query": introspection_query})
+    response = requests.post(endpoint, json={"query": introspection_query})
     return response.json() if response.status_code == 200 else None
