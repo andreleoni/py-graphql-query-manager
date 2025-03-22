@@ -10,11 +10,11 @@ class TestQueryGenerator(unittest.TestCase):
             "age"
         ]
         expected_query = """
-        {
-          user(user_id: "1") {
-            name age
-          }
-        }""".strip()
+{
+      user(user_id: "1") {
+        name age
+      }
+    }""".strip()
         query = generate_graphql_query(fields, root="user", user_id=1)
         self.assertEqual(query, expected_query)
 
@@ -38,26 +38,22 @@ class TestQueryGenerator(unittest.TestCase):
             }
         ]
         expected_query = """
-        {
-          user(user_id: "1") {
-            bank {
-              available_withdraw future_deposit { amount }
-            }
-            purchases {
-              amount_paid title
-            }
-          }
-        }""".strip()
+{
+      user(user_id: "1") {
+        bank { available_withdraw future_deposit { amount } } purchases { amount_paid title }
+      }
+    }""".strip()
         query = generate_graphql_query(fields, root="user", user_id=1)
         self.assertEqual(query, expected_query)
 
     def test_generate_graphql_query_empty_fields(self):
         fields = []
         expected_query = """
-        {
-          user(user_id: "1") {
-          }
-        }""".strip()
+{
+      user(user_id: "1") {
+
+      }
+    }""".strip()
         query = generate_graphql_query(fields, root="user", user_id=1)
         self.assertEqual(query, expected_query)
 
